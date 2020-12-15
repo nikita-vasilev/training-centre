@@ -1,0 +1,27 @@
+<h3>List of animals</h3>
+<div class="animal-item" *ngFor="let animal of animals">
+  <ul>
+    <li>Name: {{animal.name}}</li>
+    <li>Species: {{animal.species}}</li>
+    <li>Weight: {{animal.weight}}</li>
+    <button (click)="deleteAnimal(animal.id)">delete</button>
+    <button (click)="showEditForm(animal)">Edit</button>
+    <li>
+      <ng-form *ngIf="animal.id==editingId" [formGroup]="updateAnimalForm">
+        <p>Edit animal:</p>
+        <input formControlName="id" type="hidden" [value]="animal.id">
+        <input type="text" [value]="animal.name" formControlName="name" autocomplete="off">
+        <input formControlName="species" [value]="animal.species">
+        <input formControlName="weight" [value]="animal.weight">
+        <button (click)="editAnimal()">Sumbit</button>
+      </ng-form>
+    </li>
+  </ul>
+</div>
+<h3>Add new animal</h3>
+<ng-form [formGroup]="newAnimalForm">
+  <input formControlName="name">
+  <input formControlName="species">
+  <input formControlName="weight">
+  <button (click)="addAnimal()">Sumbit</button>
+</ng-form>
