@@ -1,0 +1,51 @@
+<div class="employees">
+  <div class="header">Employee</div>
+
+  <form class="form" [formGroup]="employeeForm">
+    <mat-form-field class="form-field" *ngIf="employee">
+      <mat-label>ID</mat-label>
+      <input matInput formControlName="id" placeholder="ID" readonly />
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" placeholder="Name" />
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Department</mat-label>
+      <input matInput formControlName="department" placeholder="Department" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" *ngIf="!employee" (click)="createEmployee()">Save</button>
+    <button mat-raised-button color="primary" *ngIf="employee" (click)="update()">Update</button>
+    <button mat-button color="primary" *ngIf="employee" (click)="clear()">Clear</button>
+  </form>
+
+  <table mat-table [dataSource]="employees" class="table">
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell>ID</th>
+      <td *matCellDef="let row" mat-cell>{{ _c(row).id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell>Name</th>
+      <td *matCellDef="let row" mat-cell>{{ _c(row).name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="department">
+      <th *matHeaderCellDef mat-header-cell>Department</th>
+      <td *matCellDef="let row" mat-cell>{{ _c(row).department }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="function">
+      <th *matHeaderCellDef mat-header-cell></th>
+      <td *matCellDef="let row" mat-cell>
+        <button mat-raised-button class="update" (click)="updateEmployee(_c(row))">Update</button>
+        <button mat-raised-button class="delete" (click)="delete(_c(row).id)">Delete</button>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="columns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: columns" mat-row></tr>
+  </table>
+</div>
